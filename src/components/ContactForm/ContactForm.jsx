@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import css from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux';
+import { setName, setNumber } from 'redux/formSlice';
 
-export function ContactForm({addContact}) {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+export function ContactForm({ addContact }) {
+  const name = useSelector(state => state.form.name);
+  const number = useSelector(state => state.form.number);
+  const dispatch = useDispatch();
 
   const id = nanoid();
 
@@ -12,11 +15,11 @@ export function ContactForm({addContact}) {
     const { name, value } = e.target;
     switch (name) {
       case 'name':
-        setName(value);
+        dispatch(setName(value));
         break;
 
       case 'number':
-        setNumber(value);
+        dispatch(setNumber(value));
         break;
 
       default:
@@ -27,8 +30,8 @@ export function ContactForm({addContact}) {
   const handleSubmit = evt => {
     evt.preventDefault();
     addContact({ name, number });
-    setName('');
-    setNumber('');
+    dispatch(setName(''));
+    dispatch(setNumber(''));
   };
 
   return (
