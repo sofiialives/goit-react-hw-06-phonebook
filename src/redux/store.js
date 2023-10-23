@@ -11,7 +11,6 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { contactsTasks } from './contactsSlice';
-import { formTask } from './formSlice';
 
 const appConfig = {
   key: 'contacts',
@@ -22,7 +21,6 @@ const appConfig = {
 export const store = configureStore({
   reducer: {
     contacts: persistReducer(appConfig, contactsTasks),
-    form: formTask,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
